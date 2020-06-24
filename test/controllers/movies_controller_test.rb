@@ -49,6 +49,15 @@ class MoviesControllerTest < ActionDispatch::IntegrationTest
       data.must_include "errors"
       data["errors"].must_include "query"
     end
+
+    it "returns a 404 error if the query params are empty" do
+      get movies_url, params: {query: ""}
+      assert_response :not_found
+
+      data = JSON.parse @response.body
+      data.must_include "errors"
+      data["errors"].must_include "query"
+    end
   end
 
   describe "show" do

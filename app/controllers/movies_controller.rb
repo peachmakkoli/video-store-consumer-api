@@ -3,10 +3,15 @@ class MoviesController < ApplicationController
 
   def index
     if params[:query]
-      data = MovieWrapper.search(params[:query])
-      if data.empty?
-        render status: :not_found, json: { errors: { query: ["No movie matching the query \"#{params[:query]}\""] } }
+      if params[:query].empty?
+        render status: :not_found, json: { errors: { query: ["Please enter a search query"] } }
         return
+      else
+        data = MovieWrapper.search(params[:query])
+        if data.empty?
+          render status: :not_found, json: { errors: { query: ["No movie matching the query \"#{params[:query]}\""] } }
+          return
+        end
       end
     else
       data = Movie.all
