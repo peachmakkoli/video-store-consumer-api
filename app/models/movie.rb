@@ -6,6 +6,12 @@ class Movie < ApplicationRecord
     self.inventory - Rental.where(movie: self, returned: false).length
   end
 
+  def self.update_inventories
+    Movie.all.each do |movie|
+      
+    end
+  end
+
   def image_url
     raw_value = read_attribute :image_url
     if !raw_value
