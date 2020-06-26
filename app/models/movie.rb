@@ -6,10 +6,20 @@ class Movie < ApplicationRecord
     self.inventory - Rental.where(movie: self, returned: false).length
   end
 
+<<<<<<< HEAD
   def self.update_inventories
     Movie.all.each do |movie|
       
     end
+=======
+  def self.recently_added
+    month = DateTime.now >> -1
+    self.where("created_at >= :last_month", last_month: month)
+  end
+
+  def self.popular
+    self.joins(:rentals)
+>>>>>>> master
   end
 
   def image_url
