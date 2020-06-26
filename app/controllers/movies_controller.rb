@@ -13,6 +13,12 @@ class MoviesController < ApplicationController
           return
         end
       end
+    elsif params[:showcase]
+      if params[:showcase] == "recently_added"
+        data = Movie.recently_added
+      elsif params[:showcase] == "popular"
+        data = Movie.popular
+      end
     else
       data = Movie.all
     end
